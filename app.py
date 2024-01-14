@@ -88,7 +88,7 @@ with gr.Blocks(css="""#chatbot { font-size: 14px; min-height: 1200; }""") as dem
         with gr.Group():
             gr.Markdown(f'<p style="text-align:center">在这里获取您的Open AI API密钥 <a href="https://platform.openai.com/account/api-keys">here</a></p>')
             with gr.Accordion("API Key"):
-                openAI_key = gr.Textbox(label='在此输入您的OpenAI API密钥', password=True)
+                openAI_key = gr.Textbox(label='在此输入您的OpenAI API密钥')
                 url = gr.Textbox(label='在此输入PDF的URL   (示例: https://arxiv.org/pdf/1706.03762.pdf )')
                 gr.Markdown("<center><h4>或<h4></center>")
                 file = gr.File(label='在此上传您的PDF/研究论文/书籍', file_types=['.pdf'])
