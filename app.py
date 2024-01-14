@@ -380,7 +380,7 @@ interface_1 = gr.Interface(
 interface_2 = gr.Interface(
     question_answer,
     [
-        gr.Chatbot(placeholder="Chat History", label="Chat History", lines=50, elem_id="chatbot"),
+        gr.Chatbot(placeholder_text="Chat History", label="Chat History", lines=50, elem_id="chatbot"),
         gr.Textbox(label='Enter PDF URL here   (Example: https://arxiv.org/pdf/1706.03762.pdf )'),
         gr.File(label='Upload your PDF/ Research Paper / Book here', file_types=['.pdf']),
         gr.Textbox(label='Enter your question here'),
