@@ -392,8 +392,8 @@ interface_2 = gr.Interface(
     description=description_2,
 )
 
-# 创建带有两个选项卡的界面
-tabbed_interface = gr.Interface.Grid([[interface_1], [interface_2]])
+# 启动第一个界面
+interface_1.launch()
 
-# 启动界面
-tabbed_interface.launch()
+# 启动第二个界面
+interface_2.launch()
