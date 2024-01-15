@@ -216,20 +216,20 @@ def generate_answer_text_davinci_003(question, openAI_key):
 
 
 # pre-defined questions
-questions = [
-    "What did the study investigate?",
-    "Can you provide a summary of this paper?",
-    "what are the methodologies used in this study?",
-    "what are the data intervals used in this study? Give me the start dates and end dates?",
-    "what are the main limitations of this study?",
-    "what are the main shortcomings of this study?",
-    "what are the main findings of the study?",
-    "what are the main results of the study?",
-    "what are the main contributions of this study?",
-    "what is the conclusion of this paper?",
-    "what are the input features used in this study?",
-    "what is the dependent variable in this study?",
-]
+questions = ["这项研究调查了什么？",    
+             "你能提供这篇论文的摘要吗？",    
+             "这项研究使用了哪些方法论？",    
+             "这项研究使用了哪些数据间隔？请告诉我开始日期和结束日期？",    
+             "这项研究的主要局限性是什么？",    
+             "这项研究的主要缺点是什么？",    
+             "这项研究的主要发现是什么？",    
+             "这项研究的主要结果是什么？",    
+             "这项研究的主要贡献是什么？",    
+             "这篇论文的结论是什么？",    
+             "这项研究中使用了哪些输入特征？",    
+             "这项研究中的因变量是什么？",
+            ]
+
 
 # =============================================================================
 CACHE_TIME = 60 * 60 * 6  # 6 hours
@@ -300,60 +300,12 @@ def return_recommendations(url):
 
 recommender = SemanticSearch()
 
-# title = 'PDF GPT Turbo'
-# description = """ PDF GPT Turbo allows you to chat with your PDF files. It uses Google's Universal Sentence Encoder with Deep averaging network (DAN) to give hallucination free response by improving the embedding quality of OpenAI. It cites the page number in square brackets([Page No.]) and shows where the information is located, adding credibility to the responses."""
-#
-# with gr.Blocks(css="""#chatbot { font-size: 14px; min-height: 1200; }""") as demo:
-#     gr.Markdown(f'<center><h3>{title}</h3></center>')
-#     gr.Markdown(description)
-#
-#     with gr.Row():
-#         with gr.Group():
-#             gr.Markdown(
-#                 f'<p style="text-align:center">Get your Open AI API key <a href="https://platform.openai.com/account/api-keys">here</a></p>')
-#             with gr.Accordion("API Key"):
-#                 openAI_key = gr.Textbox(label='Enter your OpenAI API key here', password=True)
-#                 url = gr.Textbox(label='Enter PDF URL here   (Example: https://arxiv.org/pdf/1706.03762.pdf )')
-#                 gr.Markdown("<center><h4>OR<h4></center>")
-#                 file = gr.File(label='Upload your PDF/ Research Paper / Book here', file_types=['.pdf'])
-#             question = gr.Textbox(label='Enter your question here')
-#             gr.Examples(
-#                 [[q] for q in questions],
-#                 inputs=[question],
-#                 label="PRE-DEFINED QUESTIONS: Click on a question to auto-fill the input box, then press Enter!",
-#             )
-#             model = gr.Radio([
-#                 'gpt-3.5-turbo',
-#                 'gpt-3.5-turbo-16k',
-#                 'gpt-3.5-turbo-0613',
-#                 'gpt-3.5-turbo-16k-0613',
-#                 'text-davinci-003',
-#                 'gpt-4',
-#                 'gpt-4-32k'
-#             ], label='Select Model', default='gpt-3.5-turbo')
-#             btn = gr.Button(value='Submit')
-#
-#             btn.style(full_width=True)
-#
-#         with gr.Group():
-#             chatbot = gr.Chatbot(placeholder="Chat History", label="Chat History", lines=50, elem_id="chatbot")
-#
-#     #
-#     # Bind the click event of the button to the question_answer function
-#     btn.click(
-#         question_answer,
-#         inputs=[chatbot, url, file, question, openAI_key, model],
-#         outputs=[chatbot],
-#     )
-#
-# demo.launch()
 
 # 第一个文件的内容
-title_1 = "Semantic Scholar Paper Recommender"
+title_1 = "相关文献导航系统"
 description_1 = (
-    "Paste a link to a paper on Hugging Face Papers and get recommendations for similar"
-    " papers from Semantic Scholar. **Note**: Some papers may not have recommendations"
-    " yet if they are new or have not been indexed by Semantic Scholar."
+    "将一篇论文的链接粘贴到下方方框处，然后从文献导航系统获取类似论文的推荐。"
+    "注意：如果论文是新的或尚未被文献导航系统索引，可能无法推荐。"
 )
 examples_1 = [
     "https://huggingface.co/papers/2309.12307",
@@ -361,14 +313,13 @@ examples_1 = [
 ]
 
 # 第二个文件的内容
-title_2 = "PDF GPT Turbo"
+title_2 = "论文解读系统"
 description_2 = (
-    "PDF GPT Turbo allows you to chat with your PDF files. It uses Google's Universal Sentence Encoder with Deep averaging network (DAN) to give hallucination free response by improving the embedding quality of OpenAI. It cites the page number in square brackets([Page No.]) and shows where the information is located, adding credibility to the responses."
+    "论文解读系统允许你与你的 PDF 文件进行对话。它使用谷歌的通用句子编码器和深度平均网络（DAN）来提供无幻觉的响应，通过提高 OpenAI 的嵌入质量。"
+    "它在方括号中注明页码（[页码]），并显示信息的位置，增加了回应的可信度。"
 )
 
 with gr.Blocks() as tab1:
-    gr.Markdown(f'<center><h3>{title_1}</h3></center>')
-    gr.Markdown(description_1)
     interface = gr.Interface(
     return_recommendations,
     gr.Textbox(lines=1),
@@ -383,17 +334,17 @@ with gr.Blocks() as tab2:
     gr.Markdown(description_2)
     with gr.Row():
         with gr.Group():
-            gr.Markdown(f'<p style="text-align:center">Get your Open AI API key <a href="https://platform.openai.com/account/api-keys">here</a></p>')
+            gr.Markdown(f'<p style="text-align:center">获取你的Open AI API key <a href="https://platform.openai.com/account/api-keys">here</a></p>')
             with gr.Accordion("API Key"):
-                openAI_key = gr.Textbox(label='Enter your OpenAI API key here')
-                url = gr.Textbox(label='Enter PDF URL here   (Example: https://arxiv.org/pdf/1706.03762.pdf )')
+                openAI_key = gr.Textbox(label='在这里输入您的API key（老师如果需要测试，可以先用我的key：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）')
+                url = gr.Textbox(label='输入pdf链接   (Example: https://arxiv.org/pdf/1706.03762.pdf )')
                 gr.Markdown("<center><h4>OR<h4></center>")
-                file = gr.File(label='Upload your PDF/ Research Paper / Book here', file_types=['.pdf'])
-            question = gr.Textbox(label='Enter your question here')
+                file = gr.File(label='在这里上传您的文件', file_types=['.pdf'])
+            question = gr.Textbox(label='输入您的问题')
             gr.Examples(
                 [[q] for q in questions],
                 inputs=[question],
-                label="PRE-DEFINED QUESTIONS: Click on a question to auto-fill the input box, then press Enter!",
+                label="您可能想问？",
             )
             model = gr.Radio([
                 'gpt-3.5-turbo', 
@@ -404,7 +355,7 @@ with gr.Blocks() as tab2:
                 'gpt-4',
                 'gpt-4-32k'
             ], label='Select Model')
-            btn = gr.Button(value='Submit')
+            btn = gr.Button(value='提交')
 
 
         with gr.Group():
@@ -419,5 +370,5 @@ with gr.Blocks() as tab2:
     )
 
 # 将两个界面放入一个 Tab 应用中
-demo = gr.TabbedInterface([tab1, tab2], ["Tab 1", "Tab 2"])
+demo = gr.TabbedInterface([tab1, tab2], ["相关文献导航系统", "论文解读系统"])
 demo.launch()
