@@ -366,34 +366,58 @@ description_2 = (
     "PDF GPT Turbo allows you to chat with your PDF files. It uses Google's Universal Sentence Encoder with Deep averaging network (DAN) to give hallucination free response by improving the embedding quality of OpenAI. It cites the page number in square brackets([Page No.]) and shows where the information is located, adding credibility to the responses."
 )
 
-# 创建第一个界面
-interface_1 = gr.Interface(
+with gr.Tab(title=title_1) as tab1:
+    gr.Markdown(description_1)
+    interface = gr.Interface(
     return_recommendations,
     gr.Textbox(lines=1),
     gr.Markdown(),
     examples=examples_1,
-    title=title_1,
-    description=description_1,
+    title=title,
+    description=description,
 )
 
-interface_2 = gr.Interface(
-    fn=question_answer,
-    inputs=[
-        gr.Chatbot(),
-        gr.Textbox(label='Enter PDF URL here   (Example: https://arxiv.org/pdf/1706.03762.pdf )'),
-        gr.File(label='Upload your PDF/ Research Paper / Book here', file_types=['.pdf']),
-        gr.Textbox(label='Enter your question here'),
-        gr.Textbox(label='Enter your OpenAI API key here'),
-        gr.Radio(['gpt-3.5-turbo', 'gpt-3.5-turbo-16k', 'gpt-3.5-turbo-0613', 'gpt-3.5-turbo-16k-0613', 'text-davinci-003', 'gpt-4', 'gpt-4-32k'], label='Select Model'),
-    ],
-    outputs=[gr.Chatbot()],
-    examples=[],
-    title=title_2,
-    description=description_2,
-)
+with gr.Tab(title=title2) as tab2:
+    gr.Markdown(f'<center><h3>{title_2}</h3></center>')
+    gr.Markdown(description_2)
+    with gr.Row():
+        with gr.Group():
+            gr.Markdown(f'<p style="text-align:center">Get your Open AI API key <a href="https://platform.openai.com/account/api-keys">here</a></p>')
+            with gr.Accordion("API Key"):
+                openAI_key = gr.Textbox(label='Enter your OpenAI API key here', password=True)
+                url = gr.Textbox(label='Enter PDF URL here   (Example: https://arxiv.org/pdf/1706.03762.pdf )')
+                gr.Markdown("<center><h4>OR<h4></center>")
+                file = gr.File(label='Upload your PDF/ Research Paper / Book here', file_types=['.pdf'])
+            question = gr.Textbox(label='Enter your question here')
+            gr.Examples(
+                [[q] for q in questions],
+                inputs=[question],
+                label="PRE-DEFINED QUESTIONS: Click on a question to auto-fill the input box, then press Enter!",
+            )
+            model = gr.Radio([
+                'gpt-3.5-turbo', 
+                'gpt-3.5-turbo-16k', 
+                'gpt-3.5-turbo-0613', 
+                'gpt-3.5-turbo-16k-0613', 
+                'text-davinci-003',
+                'gpt-4',
+                'gpt-4-32k'
+            ], label='Select Model', default='gpt-3.5-turbo')
+            btn = gr.Button(value='Submit')
 
-# 启动第一个界面
-interface_1.launch()
+            btn.style(full_width=True)
 
-# 启动第二个界面
-interface_2.launch()
+        with gr.Group():
+            chatbot = gr.Chatbot(placeholder="Chat History", label="Chat History", lines=50, elem_id="chatbot")
+
+
+    # Bind the click event of the button to the question_answer function
+    btn.click(
+        question_answer,
+        inputs=[chatbot, url, file, question, openAI_key, model],
+        outputs=[chatbot],
+    )
+
+# 将两个界面放入一个 Tab 应用中
+demo = gr.TabbedInterface([tab1, tab2], ["Tab 1", "Tab 2"])
+demo.launch()
