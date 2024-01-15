@@ -374,7 +374,7 @@ with gr.Blocks() as tab1:
     gr.Textbox(lines=1),
     gr.Markdown(),
     examples=examples_1,
-    title=title,
+    title=title_1,
     description=description,
 )
 
