@@ -297,78 +297,80 @@ def return_recommendations(url):
 
 # ==============================================================================================
 
+def run_gradio_app():
 
-recommender = SemanticSearch()
+    # 第一个文件的内容
+    title_1 = "相关文献导航系统"
+    description_1 = (
+        "将一篇论文的链接粘贴到下方方框处，然后从文献导航系统获取类似论文的推荐。"
+        "注意：如果论文是新的或尚未被文献导航系统索引，可能无法推荐。"
+    )
+    examples_1 = [
+        "https://huggingface.co/papers/2309.12307",
+        "https://huggingface.co/papers/2211.10086",
+    ]
 
-
-# 第一个文件的内容
-title_1 = "相关文献导航系统"
-description_1 = (
-    "将一篇论文的链接粘贴到下方方框处，然后从文献导航系统获取类似论文的推荐。"
-    "注意：如果论文是新的或尚未被文献导航系统索引，可能无法推荐。"
-)
-examples_1 = [
-    "https://huggingface.co/papers/2309.12307",
-    "https://huggingface.co/papers/2211.10086",
-]
-
-# 第二个文件的内容
-title_2 = "论文解读系统"
-description_2 = (
-    "论文解读系统允许你与你的 PDF 文件进行对话。它使用谷歌的通用句子编码器和深度平均网络（DAN）来提供无幻觉的响应，通过提高 OpenAI 的嵌入质量。"
-    "它在方括号中注明页码（[页码]），并显示信息的位置，增加了回应的可信度。"
-)
-
-with gr.Blocks() as tab1:
-    interface = gr.Interface(
-    return_recommendations,
-    gr.Textbox(lines=1),
-    gr.Markdown(),
-    examples=examples_1,
-    title=title_1,
-    description=description_1,
-)
-
-with gr.Blocks() as tab2:
-    gr.Markdown(f'<center><h3>{title_2}</h3></center>')
-    gr.Markdown(description_2)
-    with gr.Row():
-        with gr.Group():
-            gr.Markdown(f'<p style="text-align:center">获取你的Open AI API key <a href="https://platform.openai.com/account/api-keys">here</a></p>')
-            with gr.Accordion("API Key"):
-                openAI_key = gr.Textbox(label='在这里输入您的API key（老师如果需要测试，可以先用我的key：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）')
-                url = gr.Textbox(label='输入pdf链接   (Example: https://arxiv.org/pdf/1706.03762.pdf )')
-                gr.Markdown("<center><h4>OR<h4></center>")
-                file = gr.File(label='在这里上传您的文件', file_types=['.pdf'])
-            question = gr.Textbox(label='输入您的问题')
-            gr.Examples(
-                [[q] for q in questions],
-                inputs=[question],
-                label="您可能想问？",
-            )
-            model = gr.Radio([
-                'gpt-3.5-turbo', 
-                'gpt-3.5-turbo-16k', 
-                'gpt-3.5-turbo-0613', 
-                'gpt-3.5-turbo-16k-0613', 
-                'text-davinci-003',
-                'gpt-4',
-                'gpt-4-32k'
-            ], label='Select Model')
-            btn = gr.Button(value='提交')
-
-
-        with gr.Group():
-            chatbot = gr.Chatbot()
-
-
-    # Bind the click event of the button to the question_answer function
-    btn.click(
-        question_answer,
-        inputs=[chatbot, url, file, question, openAI_key, model],
-        outputs=[chatbot],
+    # 第二个文件的内容
+    title_2 = "论文解读系统"
+    description_2 = (
+        "论文解读系统允许你与你的 PDF 文件进行对话。它使用谷歌的通用句子编码器和深度平均网络（DAN）来提供无幻觉的响应，通过提高 OpenAI 的嵌入质量。"
+        "它在方括号中注明页码（[页码]），并显示信息的位置，增加了回应的可信度。"
     )
 
-# 将两个界面放入一个 Tab 应用中
-demo = gr.TabbedInterface([tab1, tab2], ["相关文献导航系统", "论文解读系统"])
-demo.launch()
+    with gr.Blocks() as tab1:
+        interface = gr.Interface(
+            return_recommendations,
+            gr.Textbox(lines=1),
+            gr.Markdown(),
+            examples=examples_1,
+            title=title_1,
+            description=description_1,
+        )
+
+    with gr.Blocks() as tab2:
+        gr.Markdown(f'<center><h3>{title_2}</h3></center>')
+        gr.Markdown(description_2)
+        with gr.Row():
+            with gr.Group():
+                gr.Markdown(
+                    f'<p style="text-align:center">获取你的Open AI API key <a href="https://platform.openai.com/account/api-keys">here</a></p>')
+                with gr.Accordion("API Key"):
+                    openAI_key = gr.Textbox(
+                        label='在这里输入您的API key（老师如果需要测试，可以先用我的key：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）')
+                    url = gr.Textbox(label='输入pdf链接   (Example: https://arxiv.org/pdf/1706.03762.pdf )')
+                    gr.Markdown("<center><h4>OR<h4></center>")
+                    file = gr.File(label='在这里上传您的文件', file_types=['.pdf'])
+                question = gr.Textbox(label='输入您的问题')
+                gr.Examples(
+                    [[q] for q in questions],
+                    inputs=[question],
+                    label="您可能想问？",
+                )
+                model = gr.Radio([
+                    'gpt-3.5-turbo',
+                    'gpt-3.5-turbo-16k',
+                    'gpt-3.5-turbo-0613',
+                    'gpt-3.5-turbo-16k-0613',
+                    'text-davinci-003',
+                    'gpt-4',
+                    'gpt-4-32k'
+                ], label='Select Model')
+                btn = gr.Button(value='提交')
+
+            with gr.Group():
+                chatbot = gr.Chatbot()
+
+        # Bind the click event of the button to the question_answer function
+        btn.click(
+            question_answer,
+            inputs=[chatbot, url, file, question, openAI_key, model],
+            outputs=[chatbot],
+        )
+
+    # 将两个界面放入一个 Tab 应用中
+    demo = gr.TabbedInterface([tab1, tab2], ["相关文献导航系统", "论文解读系统"])
+    demo.launch()
+
+if __name__ == '__main__':
+    # 这将确保只有当直接运行此文件时才启动 Gradio 应用
+    run_gradio_app()
