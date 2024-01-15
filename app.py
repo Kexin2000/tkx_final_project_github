@@ -403,7 +403,7 @@ with gr.Blocks() as tab2:
                 'text-davinci-003',
                 'gpt-4',
                 'gpt-4-32k'
-            ], label='Select Model', default='gpt-3.5-turbo')
+            ], label='Select Model')
             btn = gr.Button(value='Submit')
 
             btn.style(full_width=True)
