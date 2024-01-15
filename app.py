@@ -408,7 +408,7 @@ with gr.Blocks() as tab2:
 
 
         with gr.Group():
-            chatbot = gr.Chatbot(placeholder="Chat History", label="Chat History", lines=50, elem_id="chatbot")
+            chatbot = gr.Chatbot()
 
 
     # Bind the click event of the button to the question_answer function
