@@ -375,7 +375,7 @@ with gr.Blocks() as tab1:
     gr.Markdown(),
     examples=examples_1,
     title=title_1,
-    description=description,
+    description=description_1,
 )
 
 with gr.Blocks() as tab2:
