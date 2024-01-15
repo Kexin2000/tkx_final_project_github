@@ -366,7 +366,8 @@ description_2 = (
     "PDF GPT Turbo allows you to chat with your PDF files. It uses Google's Universal Sentence Encoder with Deep averaging network (DAN) to give hallucination free response by improving the embedding quality of OpenAI. It cites the page number in square brackets([Page No.]) and shows where the information is located, adding credibility to the responses."
 )
 
-with gr.Tab(title=title_1) as tab1:
+with gr.Blocks() as tab1:
+    gr.Markdown(f'<center><h3>{title_1}</h3></center>')
     gr.Markdown(description_1)
     interface = gr.Interface(
     return_recommendations,
@@ -377,7 +378,7 @@ with gr.Tab(title=title_1) as tab1:
     description=description,
 )
 
-with gr.Tab(title=title2) as tab2:
+with gr.Blocks() as tab2:
     gr.Markdown(f'<center><h3>{title_2}</h3></center>')
     gr.Markdown(description_2)
     with gr.Row():
