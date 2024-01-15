@@ -393,12 +393,7 @@ interface_2 = gr.Interface(
 )
 
 # 创建带有两个选项卡的界面
-tabbed_interface = gr.TabGroup(
-    [
-        {"Semantic Scholar Recommender": interface_1},
-        {"OpenAI Chatbot": interface_2},
-    ]
-)
+tabbed_interface = gr.Interface.Grid([[interface_1], [interface_2]])
 
 # 启动界面
 tabbed_interface.launch()
