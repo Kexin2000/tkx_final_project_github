@@ -406,7 +406,6 @@ with gr.Blocks() as tab2:
             ], label='Select Model')
             btn = gr.Button(value='Submit')
 
-            btn.style(full_width=True)
 
         with gr.Group():
             chatbot = gr.Chatbot(placeholder="Chat History", label="Chat History", lines=50, elem_id="chatbot")
