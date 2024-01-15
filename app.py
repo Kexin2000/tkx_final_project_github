@@ -385,7 +385,7 @@ with gr.Blocks() as tab2:
         with gr.Group():
             gr.Markdown(f'<p style="text-align:center">Get your Open AI API key <a href="https://platform.openai.com/account/api-keys">here</a></p>')
             with gr.Accordion("API Key"):
-                openAI_key = gr.Textbox(label='Enter your OpenAI API key here', password=True)
+                openAI_key = gr.Textbox(label='Enter your OpenAI API key here')
                 url = gr.Textbox(label='Enter PDF URL here   (Example: https://arxiv.org/pdf/1706.03762.pdf )')
                 gr.Markdown("<center><h4>OR<h4></center>")
                 file = gr.File(label='Upload your PDF/ Research Paper / Book here', file_types=['.pdf'])
