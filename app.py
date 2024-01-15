@@ -376,18 +376,17 @@ interface_1 = gr.Interface(
     description=description_1,
 )
 
-# 创建第二个界面
 interface_2 = gr.Interface(
     fn=question_answer,
     inputs=[
-        gr.Chatbot(placeholder="Chat History", label="Chat History", lines=50, elem_id="chatbot"),
+        gr.Chatbot(),
         gr.Textbox(label='Enter PDF URL here   (Example: https://arxiv.org/pdf/1706.03762.pdf )'),
         gr.File(label='Upload your PDF/ Research Paper / Book here', file_types=['.pdf']),
         gr.Textbox(label='Enter your question here'),
         gr.Textbox(label='Enter your OpenAI API key here', password=True),
         gr.Radio(['gpt-3.5-turbo', 'gpt-3.5-turbo-16k', 'gpt-3.5-turbo-0613', 'gpt-3.5-turbo-16k-0613', 'text-davinci-003', 'gpt-4', 'gpt-4-32k'], label='Select Model', default='gpt-3.5-turbo'),
     ],
-    outputs=[gr.Chatbot(placeholder="Chat History", label="Chat History", lines=50, elem_id="chatbot")],
+    outputs=[gr.Chatbot()],
     examples=[],
     title=title_2,
     description=description_2,
