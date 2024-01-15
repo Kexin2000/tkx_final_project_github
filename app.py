@@ -384,7 +384,7 @@ interface_2 = gr.Interface(
         gr.File(label='Upload your PDF/ Research Paper / Book here', file_types=['.pdf']),
         gr.Textbox(label='Enter your question here'),
         gr.Textbox(label='Enter your OpenAI API key here'),
-        gr.Radio(['gpt-3.5-turbo', 'gpt-3.5-turbo-16k', 'gpt-3.5-turbo-0613', 'gpt-3.5-turbo-16k-0613', 'text-davinci-003', 'gpt-4', 'gpt-4-32k'], label='Select Model', default='gpt-3.5-turbo'),
+        gr.Radio(['gpt-3.5-turbo', 'gpt-3.5-turbo-16k', 'gpt-3.5-turbo-0613', 'gpt-3.5-turbo-16k-0613', 'text-davinci-003', 'gpt-4', 'gpt-4-32k'], label='Select Model', index=0),
     ],
     outputs=[gr.Chatbot()],
     examples=[],
