@@ -1,4 +1,5 @@
 PyMuPDF
+gradio
 scikit-learn
 tensorflow
 tensorflow-hub
@@ -19,7 +20,6 @@ ffmpy==0.3.1
 filelock==3.12.4
 fonttools==4.42.1
 fsspec==2023.9.2
-gradio==3.45.1
 gradio-client==0.5.2
 h11==0.14.0
 httpcore==0.18.0
